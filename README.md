@@ -1,16 +1,32 @@
-# React + Vite
+# 🛒 React Filter & Map Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, modern, and responsive E-commerce product catalog built with **React**, **Tailwind CSS**, and the **Fake Store API**. This project demonstrates how to efficiently fetch data from an external API, handle client-side filtering, and manage state dynamically in React.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+*   **Dynamic Data Fetching:** Integrates with Fake Store API to fetch real-time product data.
+*   **Smart Search:** Real-time search functionality filtering products by title.
+*   **Category Filter:** Dynamically extracts categories from the dataset and provides a tab-based filtering system.
+*   **Fully Responsive Grid:** Beautifully designed card layout using Tailwind CSS that looks great on mobile, tablet, and desktop screens.
+*   **Visual Highlights:** Includes hover effects, custom badges for categories, skeleton-ready empty states, prices, and ratings.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+*   **Frontend Library:** React (Hooks used: `useState`, `useEffect`)
+*   **Styling:** Tailwind CSS (with `@tailwindcss/line-clamp` optimization)
+*   **Data Source:** [Fake Store API](https://fakestoreapi.com/)
+
+---
+
+## 🚀 Getting Started
+
+Follow these simple steps to run the project locally on your machine:
+
+### 1. Clone the repository
+```bash
+git clone <your-repository-link>
+cd <project-folder-name>
