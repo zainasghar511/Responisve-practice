@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MdDeleteOutline } from "react-icons/md";
 import { MdCheckCircleOutline } from "react-icons/md";
 import { LuSave } from "react-icons/lu";
@@ -7,7 +7,7 @@ import { MdHourglassEmpty } from "react-icons/md";
 
 const App = () => {
   const [Data, setData] = useState('');
-  const [save, setSave] = useState([])
+  // const [save, setSave] = useState([])
   const [Delete, setDelete] = useState('')
   const [allsave, setAllsave] = useState('')
    const [pendingTasks, setPendingTasks] = useState([])
@@ -15,7 +15,28 @@ const App = () => {
   const[toggle, setToggle] = useState([])
     const[completetoggle, setCompletetoggle] = useState([])
     const [count, setCount] = useState(0)
+    const[showpop, setShowpop] = useState(false)
+    const handlepop = ()=>{
+     setSave([])
+     setCount(0)
+     setShowpop(false)
+    }
+    const[save, setSave] = useState(()=>{
+      const Savedata = localStorage.getItem("My Task")
+      return Savedata? JSON.parse(Savedata):[];
+    })
   
+useEffect(() => {
+  localStorage.setItem("My Task",JSON.stringify(save))
+}, [save])
+
+
+
+
+
+
+
+
   return (
     <div className='flex flex-col gap-5 m-6 p-5 justify-between'>
       <div className=' flex justify-center gap-4'>
@@ -29,7 +50,8 @@ const App = () => {
           if(Data.trim()===""){
             alert("First Enter any Task")
           }else{
-          setSave([...save,Data])
+         const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit',year:'2-digit', Day:'Day' })
+          setSave([...save,{text:Data,time: currentTime }])
           setData("")}
         })}
          className='bg-gray-700 text-white text-center px-6 py-1 text-xl  rounded
@@ -52,12 +74,15 @@ const App = () => {
 <div>
   {save.map((item, index)=>{
     return(
-<div  className='flex justify-between' key={index}>
+<div  className='flex justify-between bg-gray-100 shadow-xl shadow-gray-200 ml-2 mb-5 rounded p-2' key={index}>
+ <div className='flex flex-col justify-center pl-2'>
+                <p className='font-medium text-gray-800'>{item.text}</p>
+                <span className='text-xs text-gray-400 font-semibold mt-0.5'>{item.time}</span>
+              </div>
+    {/* <p key={index}>{item}</p> */}
+ <div className='flex gap-20  p-2'>
  
-    <p key={index}>{item}</p>
- <div className='flex gap-20 p-2'>
- 
- {/* 2. Check lagaya ke agar is array me yeh index shamil (.includes) hai, toh delete remove kar do */}
+
  {Condtion.includes(index) ? null : (
   <MdDeleteOutline onClick={(()=>{
 const update = save.filter((_, i)=>i !== index);
@@ -100,10 +125,44 @@ setCount(count+1)}
     )
   })}
 </div>
-<h2>Total Complete Task{count}</h2>
-
+<div className='flex justify-between '>
+<h2  className='text-gray-800 font-bold ml-5 '>You Complete {count} Task</h2>
+<button className='bg-red-700 rounded text-white font-bold cursor-pointer px-4 py-1 mr-3 focus:scale-105 focus:shadow
+ focus:shadow-gray-200' onClick={(()=>{
+setShowpop(true)
+})}>
+Clear All
+</button>
+</div>
+{showpop ? (
+  <div className='fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4 animate-fadeIn'>
+  <div className='justify-center p-9 w-100 rounded flex-col bg-gray-100 text-black'>
+    <div >
+  <h1 className='font-bold flex justify-center p-2 text-red-700 text-xl mb-2'>Are You Sure?</h1>
+  <p className='font-bold text-gray-700'>Do you really want to delete all tasks? This action cannot be undone</p>
+    </div>
+    <div className=' flex justify-between'>
+      <button   className='bg-green-600 font-bold text-white px-5 cursor-pointer
+      focus:shadow
+       focus:shadow-gray-400 font-bold p- mt-5 rounded '
+      onClick={(()=>{
+        setShowpop(false)
+      })}
+      >No</button>
+      <div>
+      <button className='bg-red-600 text-white cursor-pointer focus:scale-105 
+       px-5 focus:shadow
+       focus:shadow-gray-400 mt-5 rounded '
+      onClick={handlepop}
+      >Yes</button>
+      </div>
+    </div>
+  </div>
+    </div>
+):null
+}
     </div>
   )
 }
 
-export default App
+export default App 
